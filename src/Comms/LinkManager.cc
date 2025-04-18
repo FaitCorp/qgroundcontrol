@@ -96,9 +96,20 @@ void LinkManager::registerQmlTypes()
 #endif
 }
 
-void LinkManager::init()
+void LinkManager::init(QString portString, bool manualConnect)
 {
     _autoConnectSettings = SettingsManager::instance()->autoConnectSettings();
+    if (manualConnect) {
+        bool ok = false;
+        int port = portString.toInt(&ok);
+        if (ok) {
+            // qInfo() << "Port parsed successfully:" << port;
+            _autoConnectSettings->udpListenPort()->setRawValue(port); // or any valid port number
+        } else {
+            qWarning() << "Invalid port value:" << portString;
+        }
+        
+    }
 
     if (!qgcApp()->runningUnitTests()) {
         (void) connect(_portListTimer, &QTimer::timeout, this, &LinkManager::_updateAutoConnectLinks);

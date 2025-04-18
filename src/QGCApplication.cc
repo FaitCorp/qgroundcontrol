@@ -123,6 +123,7 @@ QGCApplication::QGCApplication(int &argc, char *argv[], bool unitTesting)
         { "--logging",          &logging,               &loggingOptions },
         { "--fake-mobile",      &_fakeMobile,           nullptr },
         { "--log-output",       &_logOutput,            nullptr },
+        { "--connect",          &_manualConnect,         &_portString},
         // Add additional command line option flags here
     };
 
@@ -348,7 +349,7 @@ void QGCApplication::_initForNormalAppBoot()
     AudioOutput::instance()->init(SettingsManager::instance()->appSettings()->audioMuted());
     FollowMe::instance()->init();
     QGCPositionManager::instance()->init();
-    LinkManager::instance()->init();
+    LinkManager::instance()->init(this->_portString, this->_manualConnect);
     MultiVehicleManager::instance()->init();
     MAVLinkProtocol::instance()->init();
     VideoManager::instance()->init();

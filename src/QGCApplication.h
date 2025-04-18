@@ -156,6 +156,9 @@ private:
 
     QList<QPair<QString /* title */, QString /* message */>> _delayedAppMessages;
 
+    QString _portString;
+    bool _manualConnect = false;
+
     class CompressedSignalList
     {
     public:

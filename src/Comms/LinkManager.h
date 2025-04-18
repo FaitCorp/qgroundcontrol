@@ -53,7 +53,7 @@ public:
     static LinkManager *instance();
     static void registerQmlTypes();
 
-    void init();
+    void init(QString portString= "" ,bool manualConnect=false);
 
     /// Create/Edit Link Configuration
     Q_INVOKABLE LinkConfiguration *createConfiguration(int type, const QString &name);
